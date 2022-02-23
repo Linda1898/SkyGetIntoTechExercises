@@ -9,6 +9,11 @@ a = operator.add
 num1 = 0
 num2 = 0
 operator = 0
+fileList=[]
+saveToFile = "a"
+userFileName = 0
+calcVar1 = 0
+calcVar2 = 0
 # TODO: ask Martina if this is good practice - to get rid of while true loop we put if num1 != q etc but the variables
 #  were not defined until the while loop so this broke the code so have defined them as zero. Also had to add an if
 #  statement before the try or it would accept f and q and try to float them.
@@ -66,24 +71,50 @@ while play == "s" and num1 != "q" and num2 != "q" and operator != "q":
 
     if num1 != "q" and num2 != "q" and operator != "q":
         print("\n----------------------------------------------------------\n")
-        print("\nAll possible answers are: ")
+        print("\nAll possible answers are: \n")
         for i in num1list:
             for j in num2list:
                 for k, v in operatorDict.items():
                     if j == 0 and k == "/":
-                        print("Cannot perform", i, k, j, "because you cannot divide by zero.")
+                        calcVar1 = f"Cannot perform {i} {k} {j} because you cannot divide by zero."
+                        fileList.append(calcVar1)
+                        print(calcVar1)
                         continue
                     else:
-                        print(i, k, j, " = ", v(i, j))
-        print("\n---------------------------------------------------------------\n")
-        play = input("Would you like to play again? Press 's' to start or 'q' to quit: ")
-        if play == "s":
-            num1 = 0
-            num2 = 0
-            operator = 0
-            num1list = []
-            num2list = []
-            operatorDict = {}
+                        calcVar2 = f"{i}{k}{j} =  {v(i, j)}"
+                        fileList.append(calcVar2 + "\n")
+                        print(calcVar2)
+                        continue
 
+    while userFileName != "q":
+        userFileName = input('Press q to quit or if you would like to save your work insert a file name. It must start with a letter, only use letters and numbers, and be no more than 15 characters long: ')
+        if all([i.isalpha() or i.isdigit() for i in userFileName]) and userFileName[0].isalpha() and len(
+                userFileName) <= 15 and userFileName != "q":
+            try:
+                fileCreated = open("%s.txt" % userFileName, "x")
+                fileCreated.close()
+                break
+            except FileExistsError:
+                print("That file name exists already. Try again or press 'q' to quit.")
+        else:
+            if userFileName != "q":
+                print("Try again or press 'q' to quit")
 
+    fileCreated = open("%s.txt" % userFileName, "w")
+    fileCreated.writelines(fileList)
+    fileCreated.close()
+    print("\n---------------------------------------------------------------\n")
+    play = input("Would you like to play again? Press 's' to start or 'q' to quit: ")
+    if play == "s":
+        num1 = 0
+        num2 = 0
+        operator = 0
+        num1list = []
+        num2list = []
+        operatorDict = {}
+        fileList = []
+        saveToFile = "a"
+        userFileName = 0
+        calcVar1 = 0
+        calcVar2 = 0
 
