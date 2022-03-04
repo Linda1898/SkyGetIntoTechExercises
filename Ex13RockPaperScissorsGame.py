@@ -5,7 +5,8 @@ input_dict = {0: "rock", 1: "paper", 2: "scissors", "r": "rock", "p": "paper", "
 user_input = ""
 score_sheet=[0,0]
 #TODO:How to work score sheet? global vs local variables is tricky.
-
+#create function for user input and make everything around that. Everything comp input one function everything user input one function ifelse in another function
+#if function returns something you need to have a variable for the return --  var = play_again()
 def welcome_message():
     print("""
     Let\'s play Rock Paper Scissors!
@@ -39,7 +40,11 @@ def play(player1, player2, scoreSheet):
 
 while play_again != "q" and user_input != "q":
     play_again = input("Would you like to start? Press 's' to start or 'q' to quit: ")
-    # if play_again.isalpha(): works when in the string but when passed through the function it doesn't.
+    # if condition for play_again.isalpha() works but try and except doesnt?
+    try:
+        play_again.isalpha()
+    except AttributeError:
+        print('Invalid')
     if check_user_input_is_str(play_again):
         play_again = play_again.lower()
         while play_again == "s" and user_input != "q":
