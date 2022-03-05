@@ -17,8 +17,7 @@ calcVar2 = 0
 # TODO: ask Martina if this is good practice - to get rid of while true loop we put if num1 != q etc but the variables
 #  were not defined until the while loop so this broke the code so have defined them as zero. Also had to add an if
 #  statement before the try or it would accept f and q and try to float them.
-# NOTE CHECKING BRANCH TO SEE DIFFERENCE
-
+#I am trying to change this branhc
 play = input("Press 's' to start or 'q' to quit: ")
 while play == "s" and num1 != "q" and num2 != "q" and operator != "q":
     print("""
