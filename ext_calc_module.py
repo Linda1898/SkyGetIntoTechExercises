@@ -10,9 +10,9 @@ def welcome_calc():
     Enjoy!
     """)
 
-def get_numbers_from_user():
-    num_list=[]
+def get_list_of_numbers_from_user():
     num=0
+    num_list=[]
     while num != "f":
         num = input("Please enter a number: ")
         if num != "f":
@@ -23,7 +23,7 @@ def get_numbers_from_user():
                 print("Only numbers will work!  ")
     return num_list
 
-def get_operators_from_user():
+def get_list_of_operators_from_user():
     operator = 0
     operator_list = []
     while operator != "f":
@@ -36,22 +36,19 @@ def get_operators_from_user():
     return operator_list
 
 
-def calc_result(first_nums,second_nums,operators):
+def print_result_and_return_file_content_to_save(first_nums,second_nums,operators):
     operator_dict = {}
-    m = operator.mul
-    d = operator.truediv
-    s = operator.sub
-    a = operator.add
+    #declare dict as global variable - keep constants out of functions
     file_list = []
     for i in operators:
         if i == "*":
-            operator_dict["*"] = m
-        elif i == "/":\
-            operator_dict["/"] = d
-        elif i == "-":\
-            operator_dict["-"] = s
-        elif i == "+":\
-            operator_dict["+"] = a
+            operator_dict["*"] = operator.mul
+        elif i == "/":
+            operator_dict["/"] = operator.truediv
+        elif i == "-":
+            operator_dict["-"] = operator.sub
+        elif i == "+":
+            operator_dict["+"] = operator.add
 
     print("\n----------------------------------------------------------\n")
     print("\nAll possible answers are: \n")
