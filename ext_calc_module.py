@@ -24,37 +24,31 @@ def get_list_of_numbers_from_user():
     return num_list
 
 def get_list_of_operators_from_user():
-    operator = 0
-    operator_list = []
-    while operator != "f":
-        operator = input("Please enter an operator: ")
-        if operator == "*" or operator == "/" or operator == "-" or operator == "+":
-            operator_list.append(operator)
+    op = 0
+    operator_dict = {}
+    while op != "f":
+        op = input("Please enter an operator: ")
+        if op == "*":
+            operator_dict["*"] = operator.mul
+        elif op == "/":
+            operator_dict["/"] = operator.truediv
+        elif op == "-":
+            operator_dict["-"] = operator.sub
+        elif op == "+":
+            operator_dict["+"] = operator.add
         else:
-            if operator != "f":
+            if op != "f":
                 print("Only * / + - will work!")
-    return operator_list
+    return operator_dict
 
 
 def print_result_and_return_file_content_to_save(first_nums,second_nums,operators):
-    operator_dict = {}
-    #declare dict as global variable - keep constants out of functions
     file_list = []
-    for i in operators:
-        if i == "*":
-            operator_dict["*"] = operator.mul
-        elif i == "/":
-            operator_dict["/"] = operator.truediv
-        elif i == "-":
-            operator_dict["-"] = operator.sub
-        elif i == "+":
-            operator_dict["+"] = operator.add
-
     print("\n----------------------------------------------------------\n")
     print("\nAll possible answers are: \n")
     for i in first_nums:
         for j in second_nums:
-            for k, v in operator_dict.items():
+            for k, v in operators.items():
                 if j == 0 and k == "/":
                     calcVar1 = f"Cannot perform {i} {k} {j} because you cannot divide by zero."
                     file_list.append(calcVar1)
@@ -66,6 +60,7 @@ def print_result_and_return_file_content_to_save(first_nums,second_nums,operator
                     print(calcVar2)
                     continue
     return file_list
+
 
 def calc_save_result(content_to_be_saved):
     saveToFile = ""
